@@ -11,20 +11,24 @@ const reducer = (state, action) => {
   else if (action.type === "setCity") {
     return { ...state, city: action.data };
   }
-  else {
+  else if (action.type === "setArray") {
+    return { ...state, dataArray: [...state.dataArray,action.data] };
+  } else {
     return state
   }
-};
+}
 
 function App() {
   const [state, setState] = useReducer(reducer, {
     name: '',
     age: '',
-    city:''
+    city: '',
+    dataArray:[],
   });
   console.log(state);
   return (
     <div>
+      
       <input
         type="text"
         placeholder="name"
@@ -59,6 +63,16 @@ function App() {
           });
         }}
       />
+      <button onClick={() => {
+        setState({
+          type: 'setArray',
+          data: {
+            name: state.name,
+            age: state.age,
+            city: state.city,
+          }
+        })
+      }}>Data</button>
     </div>
   );
 }
